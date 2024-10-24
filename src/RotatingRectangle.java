@@ -8,10 +8,10 @@ import java.awt.geom.Path2D;
 public class RotatingRectangle extends JPanel implements ActionListener {
 
     private Timer timer;
-    private double angle = 0; // Поточний кут обертання
+    private double angle = 0; 
 
     public RotatingRectangle() {
-        timer = new Timer(20, this); // Таймер для оновлення кожні 20 мс
+        timer = new Timer(20, this); 
         timer.start();
     }
 
@@ -20,16 +20,13 @@ public class RotatingRectangle extends JPanel implements ActionListener {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        // Згладжування для кращого відображення
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Створення чотирикутника
         int width = 100;
         int height = 100;
         int x = getWidth() / 2 - width / 2;
         int y = getHeight() / 2 - height / 2;
 
-        // Створення об'єкта чотирикутника
         Path2D.Double rect = new Path2D.Double();
         rect.moveTo(x, y);
         rect.lineTo(x + width, y);
@@ -37,30 +34,25 @@ public class RotatingRectangle extends JPanel implements ActionListener {
         rect.lineTo(x, y + height);
         rect.closePath();
 
-        // Збереження поточного стану трансформацій
         AffineTransform old = g2d.getTransform();
 
-        // Обертання навколо центру ваги чотирикутника
         AffineTransform rotate = new AffineTransform();
         rotate.rotate(Math.toRadians(angle), x + width / 2.0, y + height / 2.0);
         g2d.setTransform(rotate);
 
-        // Малювання чотирикутника
         g2d.setColor(Color.BLUE);
         g2d.fill(rect);
 
-        // Відновлення початкового стану трансформацій
         g2d.setTransform(old);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Збільшення кута для обертання
         angle += 1;
         if (angle >= 360) {
             angle = 0;
         }
-        // Перемальовування
+        
         repaint();
     }
 

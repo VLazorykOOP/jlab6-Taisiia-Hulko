@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-// Власне виключення, яке наслідується від ArithmeticException
 class MatrixSumException extends ArithmeticException {
     public MatrixSumException(String message) {
         super(message);
@@ -25,7 +24,6 @@ public class SimpleMatrixGUIWithException extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Поле для введення розміру і кнопки
         JPanel topPanel = new JPanel();
         topPanel.add(new JLabel("Розмір (до 15):"));
         sizeInput = new JTextField(5);
@@ -36,7 +34,6 @@ public class SimpleMatrixGUIWithException extends JFrame {
         topPanel.add(compareButton);
         add(topPanel, BorderLayout.NORTH);
 
-        // Таблиці для матриць і результатів
         matrixAModel = new DefaultTableModel(0, 0);
         matrixATable = new JTable(matrixAModel);
         matrixBModel = new DefaultTableModel(0, 0);
@@ -50,7 +47,6 @@ public class SimpleMatrixGUIWithException extends JFrame {
         tablesPanel.add(new JScrollPane(resultTable));
         add(tablesPanel, BorderLayout.CENTER);
 
-        // Обробка натискання кнопок
         loadButton.addActionListener(e -> loadFromFile());
         compareButton.addActionListener(e -> compareMatrices());
     }
@@ -110,12 +106,10 @@ public class SimpleMatrixGUIWithException extends JFrame {
                 }
             }
 
-            // Генерація власного виключення при перевищенні суми елементів
             if (sumA > 100 || sumB > 100) {
                 throw new MatrixSumException("Сума елементів однієї з матриць перевищує 100!");
             }
 
-            // Порівнюємо рядки
             for (int i = 0; i < n; i++) {
                 boolean allNegative = true;
                 for (int j = 0; j < n; j++) {
